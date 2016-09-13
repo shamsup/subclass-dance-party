@@ -1,6 +1,36 @@
 $(document).ready(function() {
   window.dancers = [];
 
+  $('body').on('click', '.person', function(e) {
+    e.preventDefault();
+    var node = this;
+    window.dancers.forEach(function(dancer) {
+      if (dancer._node === node) {
+        dancer.drink(20);
+      }
+    });
+  });
+
+  $('.drinkButton').on('click', function(event) {
+    event.preventDefault();
+    window.dancers.forEach(function(dancer) {
+      if (dancer._type === 'person' && dancer._gender === 'female') {
+        dancer.drink($(this).data('alcohol'));
+      }
+    }.bind(this));
+  });
+
+  $('.lineUpButton').on('click', function() {
+    event.preventDefault();
+    var top = $('body').height();
+    var gap = ($('body').width() - 200) / window.dancers.length;
+
+    window.dancers.forEach(function(dancer, i) {
+      dancer.setPosition(top - dancer._$node.height(), gap * i);
+    });
+
+  });
+
   $('.addDancerButton').on('click', function(event) {
     /* This function sets up the click handlers for the create-dancer
      * buttons on dancefloor.html. You should only need to make one small change to it.
@@ -23,11 +53,11 @@ $(document).ready(function() {
     // make a dancer with a random position
 
     var dancer = dancerMakerFunction(
-      $('body').height() * Math.random(),
-      $('body').width() * Math.random(),
-      Math.random() * 1000
+      30 + ($('body').height() - 280) * Math.random(),
+      ($('body').width() - 200) * Math.random(),
+      500 + Math.random() * 1000
     );
     window.dancers.push(dancer);
-    $('body').append(dancer.$node);
+    $('body').append(dancer._$node);
   });
 });

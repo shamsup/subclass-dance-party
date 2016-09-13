@@ -1,5 +1,6 @@
 var BlinkyDancer = function BlinkyDancer(top, left, timeBetweenSteps) {
   Dancer.call(this, top, left, timeBetweenSteps);
+  this._$node.addClass('blinky');
 };
 BlinkyDancer.prototype = Object.create(Dancer.prototype);
 BlinkyDancer.prototype.constructor = BlinkyDancer;
@@ -9,7 +10,7 @@ BlinkyDancer.prototype._oldStep = BlinkyDancer.prototype.step;
 // Redefine our own step function that calls the super
 BlinkyDancer.prototype.step = function () {
   this._oldStep();
-  this.$node.toggle();
+  this._$node.toggle();
 };
 
 var makeBlinkyDancer = function(top, left, timeBetweenSteps) {

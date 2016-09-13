@@ -1,30 +1,145 @@
-body, html{
+body, html {
   height:100%;
 }
-body{
+body {
   margin: 0px;
   background-color:#444;
+  background-image: url(img/wood-background.jpg);
+  background-size: cover;
   font-size: 18px;
+  cursor: url(img/cursor.png), auto;
+  overflow: hidden;
 }
-body, a:link, a:visited, a:active{
+body, a:link, a:visited, a:active {
   color: lightblue;
 }
-.title, .addDancerButton{
+.title, .addDancerButton {
   padding:5px 12px;
   float:right;
 }
-.topbar{
+.topbar {
   height:32px;
   background-color: #555;
+  cursor: default;
 }
-.title{
+.title {
   background-color: #777;
 }
-.dancer{
-  border:10px solid red;
-  border-radius:10px;
+.dancer {
   position:absolute;
+  transition: top 0.5s, left 0.5s, filter 0.5s;
 }
-.big {
-  transform: scale(2);
+
+.blinky {
+  width:20px;
+  height:20px;
+  border-radius:20px;
+  background-color:red;
+}
+
+.person, .robot {
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.person.female.one {
+  width: 200px;
+  height:256px;
+  background-image: url(img/girl-1.gif);
+}
+
+.person.female.two {
+  width: 180px;
+  height: 266px;
+  background-image: url(img/girl-2.gif);
+}
+
+.person.male.one {
+  width: 225px;
+  height: 225px;
+  background-image: url(img/male-1.gif);
+}
+
+.person.male.two {
+  width: 150px;
+  height: 150px;
+  background-image: url(img/male-2.gif);
+}
+
+.person.sick {
+  -webkit-filter:sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+  filter:sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+}
+
+.person.drunk-level-1 {
+  -webkit-filter: blur(0.6px);
+  filter: blur(0.6px);
+}
+.person.drunk-level-2 {
+  -webkit-filter: blur(1.2px);
+  filter: blur(1.2px);
+}
+.person.drunk-level-3 {
+  -webkit-filter: blur(1.8px);
+  filter: blur(1.8px);
+}
+.person.drunk-level-4 {
+  -webkit-filter: blur(2.4px);
+  filter: blur(2.4px);
+}
+.person.drunk-level-5 {
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.person.sick.drunk-level-1 {
+  -webkit-filter: blur(0.6px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+  filter: blur(0.6px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+}
+.person.sick.drunk-level-2 {
+  -webkit-filter: blur(1.2px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+  filter: blur(1.2px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+}
+.person.sick.drunk-level-3 {
+  -webkit-filter: blur(1.8px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+  filter: blur(1.8px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+}
+.person.sick.drunk-level-4 {
+  -webkit-filter: blur(2.4px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+  filter: blur(2.4px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+}
+.person.sick.drunk-level-5 {
+  -webkit-filter: blur(3px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+  filter: blur(3px) sepia(1) hue-rotate(40deg) saturate(1) contrast(3);
+}
+
+.vomit {
+  position:absolute;
+  display:block;
+  width: 150px;
+  height:197px;
+}
+
+.male.one .vomit {
+  background-image: url(img/vomit-left.gif);
+  top: 20px;
+  left: -45px;
+}
+
+.male.two .vomit {
+  background-image: url(img/vomit-right.gif);
+  left: 60px;
+  top: 20px;
+}
+
+.female.one .vomit {
+  background: url(img/vomit-right.gif);
+  top: 40px;
+  left: 115px;
+}
+
+.female.two .vomit {
+  background: url(img/vomit-left.gif);
+  left: -75px;
+  top: 10px;
 }
