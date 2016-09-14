@@ -48,6 +48,9 @@ PersonDancer.prototype.getSick = function () {
 };
 
 PersonDancer.prototype.vomit = function () {
+  if (this._vomiting) {
+    return;
+  }
   var context = this;
   this._vomiting = true;
   this._sick = false;
@@ -56,15 +59,40 @@ PersonDancer.prototype.vomit = function () {
   var $vomit = $('<span class="vomit"></span>');
   this._$node.append($vomit);
 
-  $vomit.animate({opacity: 1}, 1000, function() {
-    $vomit.fadeOut(200, function() {
-      context._$node.removeClass('sick');
-      $vomit.remove();
-    });
-    context._vomiting = false;
-  });
+  $vomit.animate({opacity: 1}, 500, function() {
+    var collision = $vomit.offset();
+    collision.right = collision.left + $vomit.width();
+    collision.bottom = collision.top + $vomit.height();
 
-  this.checkDrunkLevel();
+    if (window && window.dancers) {
+      window.dancers.forEach(function(dancer) {
+        if (dancer._type === 'person' && dancer !== context) {
+          var nodeOffset = dancer._$node.offset();
+          nodeOffset.right = nodeOffset.left + dancer._$node.width();
+          nodeOffset.bottom = nodeOffset.top + dancer._$node.height();
+          if (((nodeOffset.left >= collision.left && nodeOffset.left <= collision.right)
+              || (nodeOffset.right >= collision.left && nodeOffset.right <= collision.right)
+              || (nodeOffset.right >= collision.right && nodeOffset.left <= collision.left))
+            && ((nodeOffset.top >= collision.top && nodeOffset.top <= collision.bottom)
+              || (nodeOffset.bottom >= collision.top && nodeOffset.bottom <= collision.bottom)
+              || (nodeOffset.top <= collision.top && nodeOffset.bottom >= collision.bottom))
+            ) {
+            dancer.getSick();
+            dancer.vomit();
+          }
+        }
+      });
+    }
+    $vomit.animate({opacity: 1}, 500, function() {
+      $vomit.fadeOut(200, function() {
+        context._$node.removeClass('sick');
+        $vomit.remove();
+        context._sick = false;
+        context._vomiting = false;
+        context.checkDrunkLevel();
+      });
+    });
+  });
 };
 
 PersonDancer.prototype.checkDrunkLevel = function() {
